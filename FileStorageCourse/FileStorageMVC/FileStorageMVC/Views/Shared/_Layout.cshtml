@@ -21,6 +21,8 @@
                     <li>@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Связаться", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Загрузить файл", "UploadFile", "File")</li>
+                    <li>@Html.ActionLink("Скачать файл (введите Id в адресе)", "DownloadFile", "File", new { id = 0 }, null)</li>
                 </ul>
             </div>
         </div>
