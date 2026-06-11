@@ -1,0 +1,16 @@
+@{
+    ViewBag.Title = "Загрузка файла";
+}
+
+<h2>Загрузка файла</h2>
+
+@using (Html.BeginForm("UploadFile", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <button type="submit">Загрузить</button>
+}
+
+@if (ViewBag.Message != null)
+{
+    <p style="color:green">@ViewBag.Message</p>
+}
