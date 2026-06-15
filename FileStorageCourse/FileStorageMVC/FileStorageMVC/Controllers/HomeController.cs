@@ -15,7 +15,7 @@ namespace FileStorageMVC.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Краткое описание приложения и используемого стека.";
 
             return View();
         }

@@ -1,9 +1,39 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "О проекте";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <p>Use this area to provide additional information.</p>
-</main>
+<section class="about-section">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-3">О проекте FileStorage MVC</h1>
+                    <p class="text-muted">
+                        FileStorage MVC — учебное ASP.NET MVC 5 приложение для хранения файлов.
+                        Пользователь загружает файл через веб-форму, после чего физический файл сохраняется на сервере,
+                        а метаданные записываются в базу данных.
+                    </p>
+                    <p class="text-muted mb-0">
+                        Для скачивания используется идентификатор записи. Это помогает отработать базовые
+                        практики работы с MVC, Entity Framework, LocalDB и UI/UX на Bootstrap.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-3">Технологический стек</h2>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">ASP.NET MVC 5</li>
+                        <li class="mb-2">.NET Framework 4.7.2</li>
+                        <li class="mb-2">Entity Framework 6</li>
+                        <li class="mb-2">SQL Server LocalDB</li>
+                        <li class="mb-2">Bootstrap 5</li>
+                        <li>Git + GitHub</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

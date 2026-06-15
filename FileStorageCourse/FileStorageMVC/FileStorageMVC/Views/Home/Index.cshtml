@@ -1,33 +1,68 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
+<section class="hero-section mb-5">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <span class="badge bg-primary-subtle text-primary-emphasis mb-3">FileStorage MVC</span>
+            <h1 class="display-6 fw-bold mb-3">Храните и скачивайте файлы быстро и удобно</h1>
+            <p class="lead text-muted mb-4">
+                Учебное веб-приложение для загрузки файлов, хранения метаданных в базе данных и
+                скачивания по идентификатору. Интерфейс адаптирован для desktop и mobile.
             </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="@Url.Action("UploadFile", "File")" class="btn btn-primary btn-lg">Начать загрузку</a>
+                <a href="@Url.Action("List", "File")" class="btn btn-outline-primary btn-lg">Открыть список файлов</a>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card border-0 hero-card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-3">Как пользоваться</h2>
+                    <ol class="mb-0 ps-3">
+                        <li class="mb-2">Откройте страницу <strong>Загрузить файл</strong>.</li>
+                        <li class="mb-2">Выберите файл до 10 МБ и нажмите <strong>Загрузить</strong>.</li>
+                        <li class="mb-2">Скопируйте ID файла из сообщения об успешной загрузке.</li>
+                        <li>Скачайте файл со страницы <strong>Список файлов</strong> или по ссылке.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
-</main>
+</section>
+
+<section class="mb-5">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="h4 mb-0">Возможности</h2>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 feature-card">
+                <div class="card-body">
+                    <h3 class="h5">Загрузка</h3>
+                    <p class="text-muted mb-3">Загружайте файлы через понятную форму с проверкой максимального размера.</p>
+                    <a href="@Url.Action("UploadFile", "File")" class="btn btn-sm btn-outline-primary">Перейти к загрузке</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 feature-card">
+                <div class="card-body">
+                    <h3 class="h5">Список файлов</h3>
+                    <p class="text-muted mb-3">Просматривайте все загруженные файлы и ищите нужный по имени.</p>
+                    <a href="@Url.Action("List", "File")" class="btn btn-sm btn-outline-primary">Открыть список</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 feature-card">
+                <div class="card-body">
+                    <h3 class="h5">Скачивание</h3>
+                    <p class="text-muted mb-3">Скачивайте файл по ID с сохранением исходного имени и типа.</p>
+                    <a href="@Url.Action("List", "File")" class="btn btn-sm btn-outline-primary">Скачать файл</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

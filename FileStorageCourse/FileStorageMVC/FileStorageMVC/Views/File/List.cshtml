@@ -1,23 +1,32 @@
+@using System.Linq
 @model IEnumerable<FileStorageMVC.Models.FileRecord>
 @{
     ViewBag.Title = "Список файлов";
 }
 
-<div class="d-flex align-items-center justify-content-between mb-3">
-    <h2 class="h4 mb-0">Список файлов</h2>
-    <a href="@Url.Action("UploadFile", "File")" class="btn btn-primary btn-sm">Загрузить новый файл</a>
+<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="h4 mb-1">Список файлов</h1>
+        <p class="text-muted mb-0">Все загруженные файлы с быстрым поиском по имени.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <input id="fileSearchInput" type="search" class="form-control" placeholder="Поиск по имени файла" />
+        <a href="@Url.Action("UploadFile", "File")" class="btn btn-primary text-nowrap">Загрузить</a>
+    </div>
 </div>
 
 @if (Model == null || !Model.Any())
 {
-    <div class="alert alert-info" role="alert">
-        Файлы пока не загружены. Загрузите первый файл на странице "Загрузить файл".
+    <div class="empty-state text-center p-5 rounded-4">
+        <h2 class="h5 mb-2">Файлы пока не загружены</h2>
+        <p class="text-muted mb-3">Добавьте первый файл, чтобы он появился в этом списке.</p>
+        <a href="@Url.Action("UploadFile", "File")" class="btn btn-outline-primary">Перейти к загрузке</a>
     </div>
 }
 else
 {
-    <div class="table-responsive">
-        <table class="table table-striped table-hover align-middle">
+    <div class="table-responsive list-table-wrap">
+        <table id="filesTable" class="table table-hover align-middle mb-0">
             <thead class="table-light">
                 <tr>
                     <th>Id</th>
@@ -28,16 +37,16 @@ else
                     <th class="text-nowrap">Действия</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="filesTableBody">
                 @foreach (var file in Model)
                 {
-                    <tr>
+                    <tr data-file-name="@file.OriginalFileName.ToLowerInvariant()">
                         <td>@file.Id</td>
-                        <td class="text-break">@file.OriginalFileName</td>
+                        <td class="text-break fw-medium">@file.OriginalFileName</td>
                         <td>@(Math.Round(file.Size / 1024.0, 2))</td>
                         <td class="text-break">@file.ContentType</td>
                         <td>@file.UploadDate.ToString("dd.MM.yyyy HH:mm")</td>
-                        <td>
+                        <td class="text-nowrap">
                             <a href="@Url.Action("DownloadFile", "File", new { id = file.Id })" class="btn btn-outline-primary btn-sm">
                                 Скачать
                             </a>
@@ -47,4 +56,37 @@ else
             </tbody>
         </table>
     </div>
+    <div id="searchEmptyState" class="alert alert-info mt-3 d-none" role="alert">
+        По вашему запросу ничего не найдено.
+    </div>
+}
+
+@section scripts {
+    <script>
+        (function () {
+            var input = document.getElementById("fileSearchInput");
+            var tableBody = document.getElementById("filesTableBody");
+            var emptyState = document.getElementById("searchEmptyState");
+            if (!input || !tableBody) return;
+
+            function filterRows() {
+                var query = input.value.toLowerCase().trim();
+                var rows = tableBody.querySelectorAll("tr");
+                var visible = 0;
+
+                rows.forEach(function (row) {
+                    var fileName = row.getAttribute("data-file-name") || "";
+                    var show = fileName.indexOf(query) !== -1;
+                    row.style.display = show ? "" : "none";
+                    if (show) visible++;
+                });
+
+                if (emptyState) {
+                    emptyState.classList.toggle("d-none", visible !== 0);
+                }
+            }
+
+            input.addEventListener("input", filterRows);
+        })();
+    </script>
 }
