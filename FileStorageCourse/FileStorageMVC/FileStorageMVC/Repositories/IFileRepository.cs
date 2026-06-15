@@ -1,4 +1,5 @@
 using FileStorageMVC.Models;
+using System.Collections.Generic;
 
 namespace FileStorageMVC.Repositories
 {
@@ -6,5 +7,6 @@ namespace FileStorageMVC.Repositories
     {
         int AddFile(FileRecord file);
         FileRecord GetFileById(int id);
+        IEnumerable<FileRecord> GetAllFiles();
     }
 }

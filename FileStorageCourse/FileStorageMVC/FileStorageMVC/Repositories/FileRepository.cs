@@ -1,5 +1,6 @@
 using System.Linq;
 using FileStorageMVC.Models;
+using System.Collections.Generic;
 
 namespace FileStorageMVC.Repositories
 {
@@ -20,6 +21,16 @@ namespace FileStorageMVC.Repositories
             using (var db = new AppDbContext())
             {
                 return db.Files.Find(id);
+            }
+        }
+
+        public IEnumerable<FileRecord> GetAllFiles()
+        {
+            using (var db = new AppDbContext())
+            {
+                return db.Files
+                    .OrderByDescending(f => f.UploadDate)
+                    .ToList();
             }
         }
     }

@@ -1,16 +1,41 @@
 @{
     ViewBag.Title = "Загрузка файла";
+    bool isSuccess = ViewBag.IsSuccess == true;
+    int uploadedRaw;
+    int? uploadedId = int.TryParse(Convert.ToString(ViewBag.UploadedFileId), out uploadedRaw) ? uploadedRaw : (int?)null;
 }
 
-<h2>Загрузка файла</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h4 mb-2">Загрузка файла</h2>
+                <p class="text-muted mb-4">Выберите файл для загрузки. Максимальный размер файла: до 10 МБ.</p>
 
-@using (Html.BeginForm("UploadFile", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <input type="file" name="file" />
-    <button type="submit">Загрузить</button>
-}
+                @using (Html.BeginForm("UploadFile", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="mb-3">
+                        <input type="file" name="file" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Загрузить</button>
+                }
 
-@if (ViewBag.Message != null)
-{
-    <p style="color:green">@ViewBag.Message</p>
-}
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert @(isSuccess ? "alert-success" : "alert-danger") mt-4 mb-0" role="alert">
+                        <div>@ViewBag.Message</div>
+                        @if (isSuccess && uploadedId.HasValue)
+                        {
+                            <div class="mt-2">
+                                Ссылка для скачивания:
+                                <a href="@Url.Action("DownloadFile", "File", new { id = uploadedId.Value })">
+                                    @Url.Action("DownloadFile", "File", new { id = uploadedId.Value })
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

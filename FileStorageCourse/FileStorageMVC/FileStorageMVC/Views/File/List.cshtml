@@ -1,0 +1,50 @@
+@model IEnumerable<FileStorageMVC.Models.FileRecord>
+@{
+    ViewBag.Title = "Список файлов";
+}
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="h4 mb-0">Список файлов</h2>
+    <a href="@Url.Action("UploadFile", "File")" class="btn btn-primary btn-sm">Загрузить новый файл</a>
+</div>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info" role="alert">
+        Файлы пока не загружены. Загрузите первый файл на странице "Загрузить файл".
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Имя файла</th>
+                    <th>Размер (KB)</th>
+                    <th>Тип</th>
+                    <th>Дата загрузки</th>
+                    <th class="text-nowrap">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var file in Model)
+                {
+                    <tr>
+                        <td>@file.Id</td>
+                        <td class="text-break">@file.OriginalFileName</td>
+                        <td>@(Math.Round(file.Size / 1024.0, 2))</td>
+                        <td class="text-break">@file.ContentType</td>
+                        <td>@file.UploadDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            <a href="@Url.Action("DownloadFile", "File", new { id = file.Id })" class="btn btn-outline-primary btn-sm">
+                                Скачать
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

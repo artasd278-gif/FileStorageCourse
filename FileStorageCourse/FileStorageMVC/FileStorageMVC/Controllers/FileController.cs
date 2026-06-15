@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using FileStorageMVC.Models;
 using FileStorageMVC.Repositories;
+using System.Collections.Generic;
 
 namespace FileStorageMVC.Controllers
 {
@@ -25,12 +26,14 @@ namespace FileStorageMVC.Controllers
         {
             if (file == null || file.ContentLength == 0)
             {
+                ViewBag.IsSuccess = false;
                 ViewBag.Message = "Выберите файл.";
                 return View();
             }
 
             if (file.ContentLength > maxFileSize)
             {
+                ViewBag.IsSuccess = false;
                 ViewBag.Message = $"Файл слишком большой. Максимум {maxFileSize / 1024 / 1024} MB.";
                 return View();
             }
@@ -56,8 +59,18 @@ namespace FileStorageMVC.Controllers
             var repo = new FileRepository();
             int newId = repo.AddFile(fileRecord);
 
+            ViewBag.IsSuccess = true;
+            ViewBag.UploadedFileId = newId;
             ViewBag.Message = $"Файл загружен. Id = {newId}";
             return View();
+        }
+
+        // GET: File/List
+        public ActionResult List()
+        {
+            var repo = new FileRepository();
+            IEnumerable<FileRecord> files = repo.GetAllFiles();
+            return View(files);
         }
 
         // GET: File/DownloadFile/{id}
