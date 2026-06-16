@@ -1,9 +1,9 @@
+@model FileStorageMVC.ViewModels.UploadFileViewModel
 @{
     ViewBag.Title = "Загрузка файла";
-    bool isSuccess = ViewBag.IsSuccess == true;
-    int uploadedRaw;
-    int? uploadedId = int.TryParse(Convert.ToString(ViewBag.UploadedFileId), out uploadedRaw) ? uploadedRaw : (int?)null;
-    string maxSizeText = Convert.ToString(ViewBag.MaxFileSizeText) ?? "10 МБ";
+    bool isSuccess = Model != null && Model.IsSuccess;
+    int? uploadedId = Model != null ? Model.UploadedFileId : null;
+    string maxSizeText = Model != null && !string.IsNullOrWhiteSpace(Model.MaxFileSizeText) ? Model.MaxFileSizeText : "10 МБ";
 }
 
 <div class="row justify-content-center">
@@ -26,6 +26,7 @@
 
                 @using (Html.BeginForm("UploadFile", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    @Html.AntiForgeryToken()
                     <div class="mb-3">
                         <label for="fileInput" class="form-label">Выберите файл</label>
                         <input id="fileInput" type="file" name="file" class="form-control" />
@@ -33,10 +34,10 @@
                     <button type="submit" class="btn btn-primary">Загрузить</button>
                 }
 
-                @if (ViewBag.Message != null)
+                @if (Model != null && !string.IsNullOrWhiteSpace(Model.Message))
                 {
                     <div class="alert @(isSuccess ? "alert-success" : "alert-danger") mt-4 mb-0" role="alert">
-                        <div>@ViewBag.Message</div>
+                        <div>@Model.Message</div>
                         @if (isSuccess && uploadedId.HasValue)
                         {
                             <div class="mt-3 d-flex flex-wrap align-items-center gap-2">

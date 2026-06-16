@@ -38,7 +38,8 @@ namespace FileStorageMVC
 
             Server.ClearError();
             Response.Clear();
-            Response.Redirect("~/File/UploadFile?error=maxsize");
+            Response.Redirect("~/File/UploadFile?error=maxsize", false);
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }
