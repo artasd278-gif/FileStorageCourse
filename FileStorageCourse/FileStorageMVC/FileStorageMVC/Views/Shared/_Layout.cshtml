@@ -1,11 +1,10 @@
-﻿@{
+@{
     string currentController = Convert.ToString(ViewContext.RouteData.Values["controller"]) ?? "";
     string currentAction = Convert.ToString(ViewContext.RouteData.Values["action"]) ?? "";
 }
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - FileStorage MVC</title>
@@ -23,16 +22,20 @@
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item">
-                        @Html.ActionLink("Главная", "Index", "Home", null, new { @class = "nav-link " + (currentController == "Home" && currentAction == "Index" ? "active" : "") })
+                        <a class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")"
+                           href="@Url.Action("Index", "Home")">Главная</a>
                     </li>
                     <li class="nav-item">
-                        @Html.ActionLink("Загрузить файл", "UploadFile", "File", null, new { @class = "nav-link " + (currentController == "File" && currentAction == "UploadFile" ? "active" : "") })
+                        <a class="nav-link @(currentController == "File" && currentAction == "UploadFile" ? "active" : "")"
+                           href="@Url.Action("UploadFile", "File")">Загрузить файл</a>
                     </li>
                     <li class="nav-item">
-                        @Html.ActionLink("Список файлов", "List", "File", null, new { @class = "nav-link " + (currentController == "File" && currentAction == "List" ? "active" : "") })
+                        <a class="nav-link @(currentController == "File" && currentAction == "List" ? "active" : "")"
+                           href="@Url.Action("List", "File")">Список файлов</a>
                     </li>
                     <li class="nav-item">
-                        @Html.ActionLink("О проекте", "About", "Home", null, new { @class = "nav-link " + (currentController == "Home" && currentAction == "About" ? "active" : "") })
+                        <a class="nav-link @(currentController == "Home" && currentAction == "About" ? "active" : "")"
+                           href="@Url.Action("About", "Home")">О проекте</a>
                     </li>
                 </ul>
             </div>

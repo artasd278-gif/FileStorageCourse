@@ -15,6 +15,20 @@
     </div>
 </div>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 @if (Model == null || !Model.Any())
 {
     <div class="empty-state text-center p-5 rounded-4">
@@ -47,9 +61,17 @@ else
                         <td class="text-break">@file.ContentType</td>
                         <td>@file.UploadDate.ToString("dd.MM.yyyy HH:mm")</td>
                         <td class="text-nowrap">
-                            <a href="@Url.Action("DownloadFile", "File", new { id = file.Id })" class="btn btn-outline-primary btn-sm">
-                                Скачать
-                            </a>
+                            <div class="d-flex gap-2">
+                                <a href="@Url.Action("DownloadFile", "File", new { id = file.Id })" class="btn btn-outline-primary btn-sm">
+                                    Скачать
+                                </a>
+                                @using (Html.BeginForm("DeleteFile", "File", FormMethod.Post, new { onsubmit = "return confirm('Удалить файл?');", @class = "d-inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@file.Id" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
+                                }
+                            </div>
                         </td>
                     </tr>
                 }

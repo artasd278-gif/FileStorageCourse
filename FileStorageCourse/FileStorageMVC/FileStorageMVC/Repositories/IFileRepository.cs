@@ -8,5 +8,6 @@ namespace FileStorageMVC.Repositories
         int AddFile(FileRecord file);
         FileRecord GetFileById(int id);
         IEnumerable<FileRecord> GetAllFiles();
+        void DeleteFile(int id);
     }
 }

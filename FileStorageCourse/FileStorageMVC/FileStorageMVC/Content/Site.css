@@ -16,7 +16,7 @@ body {
 }
 
 .app-body {
-    padding-top: 82px;
+    padding-top: 96px;
 }
 
 .app-navbar {
@@ -48,7 +48,7 @@ body {
 
 .body-content {
     min-height: calc(100vh - 180px);
-    padding-top: 1.25rem;
+    padding-top: 2.25rem;
 }
 
 h1,
@@ -125,7 +125,7 @@ h5 {
 
 @media (max-width: 991.98px) {
     .app-body {
-        padding-top: 74px;
+        padding-top: 88px;
     }
 
     .navbar .nav-link {
@@ -139,7 +139,7 @@ h5 {
     }
 
     .body-content {
-        padding-top: 0.75rem;
+        padding-top: 1.5rem;
     }
 
     .upload-rules {

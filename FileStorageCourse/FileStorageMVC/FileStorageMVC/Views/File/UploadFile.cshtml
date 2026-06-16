@@ -3,6 +3,7 @@
     bool isSuccess = ViewBag.IsSuccess == true;
     int uploadedRaw;
     int? uploadedId = int.TryParse(Convert.ToString(ViewBag.UploadedFileId), out uploadedRaw) ? uploadedRaw : (int?)null;
+    string maxSizeText = Convert.ToString(ViewBag.MaxFileSizeText) ?? "10 МБ";
 }
 
 <div class="row justify-content-center">
@@ -17,7 +18,7 @@
                     <div class="upload-rules p-3 rounded-3">
                         <div class="small fw-semibold mb-1">Ограничения</div>
                         <ul class="small text-muted mb-0 ps-3">
-                            <li>Максимальный размер: 10 МБ</li>
+                            <li>Максимальный размер: @maxSizeText</li>
                             <li>Допустимые форматы: любые</li>
                         </ul>
                     </div>

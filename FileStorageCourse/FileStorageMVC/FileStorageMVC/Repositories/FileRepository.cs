@@ -33,5 +33,20 @@ namespace FileStorageMVC.Repositories
                     .ToList();
             }
         }
+
+        public void DeleteFile(int id)
+        {
+            using (var db = new AppDbContext())
+            {
+                var file = db.Files.Find(id);
+                if (file == null)
+                {
+                    return;
+                }
+
+                db.Files.Remove(file);
+                db.SaveChanges();
+            }
+        }
     }
 }
