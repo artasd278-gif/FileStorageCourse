@@ -1,6 +1,6 @@
 using System;
 
-namespace FileStorageMVC.Models
+namespace FileStorageMVC.Core.Entities
 {
     public class FileRecord
     {

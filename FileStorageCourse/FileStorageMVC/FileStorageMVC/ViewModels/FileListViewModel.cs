@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using FileStorageMVC.Models;
+using FileStorageMVC.Core.Entities;
 
 namespace FileStorageMVC.ViewModels
 {

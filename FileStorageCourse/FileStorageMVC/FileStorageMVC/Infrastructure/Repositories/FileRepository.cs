@@ -1,8 +1,10 @@
-using System.Linq;
-using FileStorageMVC.Models;
 using System.Collections.Generic;
+using System.Linq;
+using FileStorageMVC.Core.Abstractions;
+using FileStorageMVC.Core.Entities;
+using FileStorageMVC.Infrastructure.Data;
 
-namespace FileStorageMVC.Repositories
+namespace FileStorageMVC.Infrastructure.Repositories
 {
     public class FileRepository : IFileRepository
     {

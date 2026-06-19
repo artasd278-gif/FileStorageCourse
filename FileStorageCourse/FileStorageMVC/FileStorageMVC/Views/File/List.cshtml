@@ -4,7 +4,7 @@
     ViewBag.Title = "Список файлов";
     var files = Model != null && Model.Files != null
         ? Model.Files
-        : Enumerable.Empty<FileStorageMVC.Models.FileRecord>();
+        : Enumerable.Empty<FileStorageMVC.Core.Entities.FileRecord>();
 }
 
 <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">

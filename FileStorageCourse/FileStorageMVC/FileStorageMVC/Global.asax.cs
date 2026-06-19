@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using FileStorageMVC.App_Start;
 
 namespace FileStorageMVC
 {
@@ -12,6 +13,7 @@ namespace FileStorageMVC
     {
         protected void Application_Start()
         {
+            DependencyConfig.RegisterDependencies();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

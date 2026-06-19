@@ -1,7 +1,7 @@
-using FileStorageMVC.Models;
 using System.Collections.Generic;
+using FileStorageMVC.Core.Entities;
 
-namespace FileStorageMVC.Repositories
+namespace FileStorageMVC.Core.Abstractions
 {
     public interface IFileRepository
     {

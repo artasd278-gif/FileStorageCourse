@@ -1,20 +1,39 @@
 using System.Web;
 using System.Web.Mvc;
-using FileStorageMVC.Repositories;
-using FileStorageMVC.Services;
+using FileStorageMVC.Application.Abstractions;
 using FileStorageMVC.ViewModels;
 
 namespace FileStorageMVC.Controllers
 {
     public class FileController : Controller
     {
-        private readonly IFileStorageService _fileStorageService = new FileStorageService(new FileRepository());
+        private readonly IFileStorageService _fileStorageService;
+
+        public FileController()
+            : this((IFileStorageService)DependencyResolver.Current.GetService(typeof(IFileStorageService)))
+        {
+        }
+
+        public FileController(IFileStorageService fileStorageService)
+        {
+            if (fileStorageService == null)
+            {
+                throw new System.ArgumentNullException("fileStorageService");
+            }
+
+            _fileStorageService = fileStorageService;
+        }
 
         // GET: File/UploadFile
         public ActionResult UploadFile()
         {
-            var vm = _fileStorageService.BuildUploadViewModel(Request.QueryString["error"]);
-            return View(vm);
+            var pageData = _fileStorageService.GetUploadPageData(Request.QueryString["error"]);
+            return View(new UploadFileViewModel
+            {
+                IsSuccess = false,
+                Message = pageData.ErrorMessage,
+                MaxFileSizeText = pageData.MaxFileSizeText
+            });
         }
 
         // POST: File/UploadFile
@@ -22,8 +41,26 @@ namespace FileStorageMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
-            var vm = _fileStorageService.Upload(file);
-            return View(vm);
+            UploadFileRequest request = null;
+            if (file != null)
+            {
+                request = new UploadFileRequest
+                {
+                    OriginalFileName = file.FileName,
+                    ContentType = file.ContentType,
+                    ContentLength = file.ContentLength,
+                    ContentStream = file.InputStream
+                };
+            }
+
+            var result = _fileStorageService.Upload(request);
+            return View(new UploadFileViewModel
+            {
+                IsSuccess = result.IsSuccess,
+                Message = result.Message,
+                UploadedFileId = result.UploadedFileId,
+                MaxFileSizeText = result.MaxFileSizeText
+            });
         }
 
         [HttpPost]
